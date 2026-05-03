@@ -6,3 +6,8 @@ __pycache__/
 venv/
 env/
 .env
+data/
+outputs/
+deploy_hf.py
+build_git.py
+prep_readme.sh

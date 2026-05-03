@@ -4,35 +4,42 @@ emoji: 🧠
 colorFrom: indigo
 colorTo: purple
 sdk: streamlit
-sdk_version: 1.28.0
+sdk_version: 1.42.0
 python_version: "3.10"
 app_file: app.py
 pinned: false
 ---
 # 🧠 CaptionIQ — AI Image Captioning
 
-> Generate natural language captions for images using VGG16/VGG19 + LSTM on the Flickr8K dataset.
+> Generate natural language captions for images using VGG16/VGG19 + Bahdanau Attention LSTM on the Flickr8K dataset.
 
 ---
 
 ## ✨ Features
 
-- **Dual CNN Backbones** — VGG16 and VGG19 for image feature extraction
-- **LSTM Caption Decoder** — Generates fluent, descriptive captions
-- **Beam Search** — Top-3 diverse captions with confidence scores
-- **BLEU Evaluation** — BLEU-1 through BLEU-4 with VGG16 vs VGG19 comparison
-- **Streamlit Web App** — Upload images, switch backbones, download captions
-- **Demo Mode** — Try with preloaded Flickr8K sample images
+- **Dual CNN Backbones** — VGG16 and VGG19 for spatial feature extraction (7×7×512)
+- **Bahdanau Attention LSTM** — Attends to specific image regions per word
+- **Ensemble Mode (BLIP)** — High-quality captions from Salesforce BLIP model
+- **Beam Search** — Top-5 diverse captions with confidence bars
+- **🔥 Attention Heatmap** — Interactive word-by-word gradient saliency overlay
+- **☁️ Word Cloud** — Live word distribution from beam candidates
+- **🔄 Model Comparison** — VGG16 vs VGG19 vs Ensemble side-by-side with 🏆 winner
+- **📋 Session History** — Track all generated captions, export as JSON/CSV
+- **🎲 Surprise Me** — Random Flickr8K image with one click
+- **BLEU Evaluation** — Per-image BLEU-1 through BLEU-4 scoring
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-Image → VGG16/19 (fc2) → 4096-d → Dense(256) ─┐
-                                                 ├→ Add → Dense(256) → Softmax(vocab)
-Caption → Embedding(256) → LSTM(256) ───────────┘
+Image → VGG16/19 block5_pool → (49 × 512) spatial map
+                                      ↓
+                          Bahdanau Attention
+                                      ↓
+Caption tokens → Embedding(256) → LSTM(512) → Softmax(vocab)
 ```
+
 
 ---
 
