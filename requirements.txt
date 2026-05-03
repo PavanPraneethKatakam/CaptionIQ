@@ -1,5 +1,8 @@
-tensorflow>=2.13.0
-numpy>=1.23.0
+# Python 3.11 required (see runtime.txt)
+# TensorFlow does not have wheels for Python 3.13+
+
+tensorflow==2.15.1
+numpy>=1.23.0,<2.0.0
 pandas>=1.5.0
 Pillow>=9.0.0
 matplotlib>=3.6.0
@@ -7,6 +10,6 @@ nltk>=3.8.0
 tqdm>=4.64.0
 streamlit>=1.28.0
 kagglehub>=0.1.0
-torch
-transformers
+torch>=2.0.0
+transformers>=4.35.0
 wordcloud>=1.9.0
